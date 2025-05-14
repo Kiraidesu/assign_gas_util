@@ -1,40 +1,57 @@
 {% extends "base_generic.html" %}
 {% block content %}
-<h2>All Service Requests</h2>
+<h2 style="text-align: center; margin-bottom: 30px;">All Service Requests</h2>
 
-<table border="1" cellpadding="10">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Type</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Created</th>
-            <th>Resolved</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for req in requests %}
-        <tr>
-            <td>{{ req.id }}</td>
-            <td>{{ req.request_type }}</td>
-            <td>{{ req.description }}</td>
-            <td>{{ req.status }}</td>
-            <td>{{ req.created_at }}</td>
-            <td>{{ req.resolved_at|default:"-" }}</td>
-            <td>
-                {% if req.status != "Resolved" %}
-                <form method="POST" action="{% url 'mark_resolved' req.id %}">
-                    {% csrf_token %}
-                    <button type="submit">Mark Resolved</button>
-                </form>
-                {% else %}
-                ✅
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div style="overflow-x: auto; padding: 0 20px;">
+    <table style="
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fffdf9;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        border-radius: 10px;
+        overflow: hidden;
+    ">
+        <thead style="background-color: #a0522d; color: white;">
+            <tr>
+                <th style="padding: 12px;">ID</th>
+                <th style="padding: 12px;">Type</th>
+                <th style="padding: 12px;">Description</th>
+                <th style="padding: 12px;">Status</th>
+                <th style="padding: 12px;">Created</th>
+                <th style="padding: 12px;">Resolved</th>
+                <th style="padding: 12px;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for req in requests %}
+            <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 10px; text-align: center;">{{ req.id }}</td>
+                <td style="padding: 10px;">{{ req.get_request_type_display }}</td>
+                <td style="padding: 10px;">{{ req.description }}</td>
+                <td style="padding: 10px; text-transform: capitalize;">{{ req.status }}</td>
+                <td style="padding: 10px;">{{ req.created_at|date:"Y-m-d H:i" }}</td>
+                <td style="padding: 10px;">{{ req.resolved_at|default:"-" }}</td>
+                <td style="padding: 10px; text-align: center;">
+                    {% if req.status != "resolved" %}
+                    <form method="POST" action="{% url 'mark_resolved' req.id %}">
+                        {% csrf_token %}
+                        <button type="submit" style="
+                            background-color: #ff9800;
+                            color: white;
+                            border: none;
+                            padding: 8px 12px;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            transition: background-color 0.3s ease;
+                        ">Mark Resolved</button>
+                    </form>
+                    {% else %}
+                    <span style="font-size: 1.2em;">✅</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
