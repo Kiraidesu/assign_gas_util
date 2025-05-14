@@ -39,11 +39,14 @@ def submit_request(request):
     if request.method == 'POST':
         form = ServiceRequestForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            service_request = form.save(commit=False)
+            service_request.user = request.user  # ← assign user here
+            service_request.save()
             return render(request, 'service_requests/thank_you.html')
     else:
         form = ServiceRequestForm()
     return render(request, 'service_requests/submit.html', {'form': form})
+
 
 @login_required
 def track_request(request):

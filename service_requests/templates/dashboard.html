@@ -9,6 +9,8 @@
     {% else %}
         <p>You are logged in as a regular user.</p>
         <a href="{% url 'submit_request' %}">Submit a New Service Request</a>
+		<a href="{% url 'user_requests' %}">Track my Service Request/s</a>
+		
     {% endif %}
 </div>
 {% endblock %}
