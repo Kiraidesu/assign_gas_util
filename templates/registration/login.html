@@ -1,0 +1,105 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <style>
+    .login-container {
+      max-width: 400px;
+      margin: 60px auto;
+      padding: 30px 40px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      text-align: left;
+
+      /* Animation start styles */
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeSlideIn 0.8s ease-out forwards;
+    }
+
+    @keyframes fadeSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-container h2 {
+      text-align: center;
+      color: #a0522d;
+      margin-bottom: 25px;
+      font-size: 2em;
+      text-decoration: underline;
+      text-underline-offset: 6px;
+    }
+
+    .login-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .login-container label {
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 5px;
+    }
+
+    .login-container input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+      transition: border 0.3s ease;
+    }
+
+    .login-container input:focus {
+      border-color: #a0522d;
+      outline: none;
+    }
+
+    .login-container button {
+      background-color: #a0522d;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-weight: bold;
+      border-radius: 6px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s ease, letter-spacing 0.3s ease;
+    }
+
+    .login-container button:hover {
+      background-color: #864119;
+      letter-spacing: 1px;
+    }
+
+    .login-container p {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .login-container a {
+      color: #a0522d;
+      font-weight: bold;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      transition: text-underline-offset 0.3s ease;
+    }
+
+    .login-container a:hover {
+      text-underline-offset: 8px;
+    }
+  </style>
+
+  <div class="login-container">
+    <h2>Login</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Log In</button>
+    </form>
+    <p>New user? <a href="{% url 'signup' %}">Sign-up</a></p>
+  </div>
+{% endblock %}

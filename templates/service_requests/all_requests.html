@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<h2>All Service Requests</h2>
+
+<table border="1" cellpadding="10">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Created</th>
+            <th>Resolved</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for req in requests %}
+        <tr>
+            <td>{{ req.id }}</td>
+            <td>{{ req.request_type }}</td>
+            <td>{{ req.description }}</td>
+            <td>{{ req.status }}</td>
+            <td>{{ req.created_at }}</td>
+            <td>{{ req.resolved_at|default:"-" }}</td>
+            <td>
+                {% if req.status != "Resolved" %}
+                <form method="POST" action="{% url 'mark_resolved' req.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Mark Resolved</button>
+                </form>
+                {% else %}
+                ✅
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

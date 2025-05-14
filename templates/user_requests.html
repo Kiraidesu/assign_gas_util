@@ -1,0 +1,80 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <style>
+    .requests-container {
+      max-width: 800px;
+      margin: 60px auto;
+      background: #fffef9;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 5px 16px rgba(0, 0, 0, 0.07);
+      animation: fadeIn 0.5s ease;
+    }
+
+    .requests-container h2 {
+      color: #a0522d;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2em;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      transition: text-underline-offset 0.3s ease;
+    }
+
+    .requests-container h2:hover {
+      text-underline-offset: 10px;
+      letter-spacing: 1px;
+    }
+
+    .requests-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .requests-list li {
+      background: #f8f3ea;
+      border-left: 4px solid #a0522d;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .requests-list li:hover {
+      background: #f1e6d9;
+      transform: scale(1.01);
+    }
+
+    .requests-list strong {
+      color: #7a3e1b;
+      font-size: 1.1em;
+    }
+
+    .no-requests {
+      text-align: center;
+      color: #555;
+      font-size: 1.1em;
+      padding: 30px;
+    }
+  </style>
+
+  <div class="requests-container">
+    <h2>Your Support Requests</h2>
+
+    {% if requests %}
+      <ul class="requests-list">
+        {% for req in requests %}
+          <li>
+            <strong>{{ req.request_type|capfirst }}</strong> — {{ req.description }}<br>
+            <small>Status: {{ req.status|capfirst }} | Submitted on: {{ req.created_at|date:"Y-m-d H:i" }}</small>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="no-requests">
+        <p>You have not submitted any requests yet.</p>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
