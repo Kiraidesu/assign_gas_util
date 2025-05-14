@@ -1,3 +1,8 @@
+{% extends "base_generic.html" %}
+
+{% block title %}Track Request{% endblock %}
+
+{% block content %}
 <h2>Track Request</h2>
 <form method="GET">
     <input type="text" name="id" placeholder="Enter Request ID">
@@ -14,3 +19,4 @@
 {% elif request.GET.id %}
     <p style="color:red;">Request not found.</p>
 {% endif %}
+{% endblock %}

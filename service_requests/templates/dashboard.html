@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Welcome {{ user.username }}!</h2>
+    {% if user.is_staff %}
+        <p>You are logged in as an <strong>Admin</strong>.</p>
+        <a href="{% url 'all_requests' %}">View All Service Requests</a>
+    {% else %}
+        <p>You are logged in as a regular user.</p>
+        <a href="{% url 'submit_request' %}">Submit a New Service Request</a>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h2>Your Support Requests</h2>
+
+  {% if requests %}
+    <ul>
+      {% for req in requests %}
+        <li>
+          <strong>{{ req.issue_type }}</strong> - {{ req.description }}<br>
+          Status: {{ req.status }} | Submitted on: {{ req.created_at|date:"Y-m-d H:i" }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>You have not submitted any requests yet.</p>
+  {% endif %}
+{% endblock %}

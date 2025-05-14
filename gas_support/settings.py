@@ -67,6 +67,11 @@ TEMPLATES = [
     },
 ]
 
+LOGIN_REDIRECT_URL = '/dashboard/'
+
+LOGOUT_REDIRECT_URL = '/'
+
+
 WSGI_APPLICATION = 'gas_support.wsgi.application'
 
 

@@ -1,16 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>{% block title %}Service Requests{% endblock %}</title>
+    <meta charset="UTF-8">
+    <title>{% block title %}Gas Support{% endblock %}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; }
+        nav {
+            background: #a0522d;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #ffc107;
+        }
+        .container {
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Gas Support System</h1>
-        <hr>
-    </header>
-
-    <main>
+    <nav>
+        <div class="logo">🔥 GasSupport</div>
+        <div>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="#about">About Us</a>
+            <a href="#contact">Contact Us</a>
+            {% if user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="post" style="display: inline;">
+				  {% csrf_token %}
+				  <button type="submit" style="background: none; border: none; color: #fff; cursor: pointer;">Logout</button>
+				</form>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+    </nav>
+    
+    <div class="container">
         {% block content %}{% endblock %}
-    </main>
+    </div>
 </body>
 </html>
