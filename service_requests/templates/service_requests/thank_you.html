@@ -1,8 +1,48 @@
 {% extends "base_generic.html" %}
 
-{% block title %}{% endblock %}
-
 {% block content %}
-<h2>Thank You</h2>
-<p>Your request has been submitted.</p>
+  <style>
+    .thank-container {
+      max-width: 600px;
+      margin: 100px auto;
+      background: #fff9ec;
+      padding: 50px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 5px 16px rgba(0, 0, 0, 0.07);
+      animation: fadeIn 0.5s ease;
+    }
+
+    .thank-container h2 {
+      color: #a0522d;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .thank-container p {
+      font-size: 1.1em;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .thank-container a {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #a0522d;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .thank-container a:hover {
+      background: #8b4513;
+    }
+  </style>
+
+  <div class="thank-container">
+    <h2>Thank You!</h2>
+    <p>Your request has been submitted successfully.</p>
+    <a href="{% url 'dashboard' %}">Go to Dashboard</a>
+  </div>
 {% endblock %}
